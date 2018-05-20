@@ -1,0 +1,35 @@
+<section class="todoapp">
+  <header class="header">
+    <h1>{{title}}</h1>
+    <form (ngSubmit)="addTodo()">
+      <input class="new-todo" placeholder="what to do?" #newTodo autofocus>
+    </form>
+    <app-reco-vocale></app-reco-vocale>
+
+  </header>
+  <section class="main">
+    <input class="toggle-all" type="checkbox" (ngModelChange)="toggleAllChange()" [ngModel]="toggleAll()">
+    <label for="toggle-all">Mark all as complete</label>
+    <ul class="todo-list">
+      <li *ngFor="let chose of getChoses()" [class.completed]="chose.fait" [class.editing]="itemchose.editing">
+        <app-chose [nf]="chose" #itemchose></app-chose>
+      </li>
+    </ul>
+  </section>
+  <footer class="footer">
+    <span class="todo-count">{{ getCountTodo() }}<strong></strong> restantes</span>
+    <ul class="filters">
+      <li>
+        <a [class.selected]="currentFilter === filterAll" (click)="currentFilter = filterAll" class="filterAll">Tous</a>
+      </li>
+      <li>
+        <a [class.selected]="currentFilter === filterActives" (click)="currentFilter = filterActives" class="filterActives">Actifs</a>
+      </li>
+      <li>
+        <a [class.selected]="currentFilter === filterCompleted" (click)="currentFilter = filterCompleted" class="filterCompleted">Complétés</a>
+      </li>
+    </ul>
+    <button class="clear-completed" *ngIf="getCountCompleted() > 0" (click)="disposeAll()">Supprimer cochées</button>
+  </footer>
+</section>
+
